@@ -17,14 +17,14 @@ apps=(
   firefox
   hazel
   qlmarkdown
-  seil
+  # seil
   spotify
-  vagrant
-  arq
+  # vagrant
+  # arq
   flash
   iterm2
   qlprettypatch
-  shiori
+  # shiori
   sublime-text3
   virtualbox
   atom
@@ -32,16 +32,26 @@ apps=(
   mailbox
   qlstephen
   sketch
-  tower
+  # tower
   vlc
-  cloudup
+  # cloudup
   font-m-plus
-  nvalt
+  # nvalt
   quicklook-json
   skype
   transmission
-  apikitchen
-  mamp
+  # apikitchen
+  # mamp
+  1password
+  inkscape
+  sourcetree
+  openoffice
+  node
+  openssl
+  osxfuse
+  dash
+  the-unarchiver
+  mysql
 )
 
 # fonts

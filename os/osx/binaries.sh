@@ -47,7 +47,7 @@ brew install ${binaries[@]}
 
 # Add osx specific command line tools
 if test ! $(which subl); then
-  ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
+  ln -s "/Applications/Sublime Text 3.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
 fi
 
 # Install spot

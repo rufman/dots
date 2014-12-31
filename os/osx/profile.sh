@@ -1,6 +1,46 @@
 ## Export PATH
 export PATH=/usr/local/bin:$HOME/bin:/usr/local/sbin:$PATH
 
+## Load the shell dotfiles, and then some:
+# * ~/.path can be used to extend `$PATH`.
+# * ~/.extra can be used for other settings you don’t want to commit.
+for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
+  [ -r "$file" ] && [ -f "$file" ] && source "$file"
+done
+unset file
+
+# Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
+[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2 | tr ' ' '\n')" scp sftp ssh
+
+# If possible, add tab completion for many more commands
+[ -f /etc/bash_completion ] && source /etc/bash_completion
+
+# Set architecture flags
+export ARCHFLAGS="-arch x86_64"
+# Ensure user-installed binaries take precedence
+export PATH=/usr/local/bin:$PATH
+# Load .bashrc if it exists
+test -f ~/.bashrc && source ~/.bashrc
+
+# ATOM path
+export ATOM_PATH=/Applications/Development/Atom.app
+
+# Virtualenv Wrapper
+export WORKON_HOME=~/Documents/envs
+source /usr/local/bin/virtualenvwrapper.sh
+
+# pip should only run if there is a virtualenv currently activated
+export PIP_REQUIRE_VIRTUALENV=true
+syspip(){
+   PIP_REQUIRE_VIRTUALENV="" pip "$@"
+}
+
+# cache pip-installed packages to avoid re-downloading
+export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
+
+# AWS credential location
+export AWS_CREDENTIAL_FILE="/Users/stephane/.goodrx-credentials"
+
 ## Put brew's ruby in front
 export PATH=/usr/local/opt/ruby/bin:$PATH
 
@@ -19,7 +59,7 @@ EDITOR="subl -w"
 
 # Default cd path for interactive shells
 if test “${PS1+set}”; then
-  CDPATH=:"..:~:~/Projects";
+  CDPATH=:"..:~:~/code";
 fi
 
 # Add bash completion (for git and others)
@@ -118,79 +158,3 @@ prompt() {
 }
 
 PROMPT_COMMAND=prompt
-
-###########
-# Aliases #
-###########
-
-## matrix fun
-function hax0r() {
-    perl -e '$|++; while (1) { print " " x (rand(35) + 1), int(rand(2)) }'
-}
-
-## Add hub
-eval "$(hub alias -s)"
-
-## Color ls
-alias ls='ls --color=auto -hF'
-
-## Display as a list, sorting by time modified
-alias ll='ls -1t'
-
-## Display the insides of a particular directory
-alias lv='ls -R'
-
-## Git aliases from TJ Holowaychuk
-alias gd="git diff | subl"
-alias ga="git add"
-alias gbd="git branch -D"
-alias gs="git status"
-alias gc="git commit -m"
-alias gca="git commit -a -m"
-alias gm="git merge --no-ff"
-alias gpt="git push --tags"
-alias gp="git push"
-alias grh="git reset --hard"
-alias gb="git branch"
-alias gcob="git checkout -b"
-alias gco="git checkout"
-alias gba="git branch -a"
-alias gcp="git cherry-pick"
-alias gl="git log --pretty='format:%Cgreen%h%Creset %an - %s' --graph"
-alias gpom="git pull --rebase origin master"
-alias gcd='cd "`git rev-parse --show-toplevel`"'
-
-## Get the process on a given port
-function port() {
-  lsof -i ":${1:-80}"
-}
-
-## subl
-alias s="subl -a"
-
-## mongroup
-alias mg=mongroup
-
-## gopen - open to own github
-
-function gopen() {
-  open "https://github.com/matthewmueller/${1}";
-}
-
-
-## Open localhost
-
-function ol() {
-  open "http://localhost:${1:-3000}"
-}
-
-if [[ `node -v` =~ ^v0.11 ]]; then
-  alias node="node --harmony-generators"
-  alias node-dev="node-dev --harmony-generators"
-  alias mocha="mocha --harmony-generators"
-fi
-
-alias wm="watch -q make &"
-
-# Update the number of open files
-ulimit -n 1000
