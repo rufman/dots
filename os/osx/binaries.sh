@@ -40,6 +40,8 @@ binaries=(
   ack
   git
   hub
+  mysql
+  openssl
 )
 
 # Install the binaries

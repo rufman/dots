@@ -8,6 +8,7 @@ main() {
   export dirname=$(dirname $(realpath $0))
   export lib="$dirname/lib"
   export os="$dirname/os"
+  export setup="$dirname/setup"
 
   # parse options
   while [[ "$1" =~ ^- ]]; do
@@ -37,6 +38,14 @@ main() {
       update $2
       exit
       ;;
+    update-setup )
+      updatesetup $2 $3
+      exit
+      ;;
+    setup )
+      setup $2 $3
+      exit
+      ;;
     *)
       usage
       exit
@@ -57,9 +66,11 @@ usage() {
 
   Commands:
 
-    reload                  Reload the dotfiles
-    boot <os>               Bootstrap the given operating system
-    update <os|dots>        Update the os or dots
+    reload                                     Reload the dotfiles
+    boot <os>                                  Bootstrap the given operating system
+    update <os|dots>                           Update the os or dots
+    update-setup <environment> <project_path>  Update an environment at a sepcific project target
+    setup <environment> <project_path>         Setup up an environment with a sepcific project target
 
 EOF
 }
@@ -78,8 +89,18 @@ boot() {
 update() {
   if [[ -e "$os/$1/index.sh" ]]; then
     sh "$os/$1/update.sh"
-  else
+  else 
     updatedots
+  fi
+}
+
+# update an environment
+updatesetup() {
+  if [[ -e "$setup/$1/update.sh" ]]; then
+    sh "$setup/$1/update.sh" $2
+  else
+    echo "boot: could not find \"$1\" update script"
+    exit 1
   fi
 }
 
@@ -88,10 +109,20 @@ updatedots() {
   echo "updating dots..."
   mkdir -p /tmp/dots \
     && cd /tmp/dots \
-    && curl -L# https://github.com/matthewmueller/dots/archive/master.tar.gz | tar zx --strip 1 \
+    && curl -L# https://github.com/rufman/dots/archive/master.tar.gz | tar zx --strip 1 \
     && ./install.sh \
     && echo "updated dots to $(dots --version)."
   exit
+}
+
+# Bootstrap an environment
+setup() {
+  if [[ -e "$setup/$1/index.sh" ]]; then
+    sh "$setup/$1/index.sh" $2
+  else
+    echo "boot: could not find \"$1\""
+    exit 1
+  fi
 }
 
 # "readlink -f" shim for mac os x

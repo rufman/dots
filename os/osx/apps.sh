@@ -47,11 +47,10 @@ apps=(
   sourcetree
   openoffice
   node
-  openssl
   osxfuse
   dash
   the-unarchiver
-  mysql
+  diffmerge
 )
 
 # fonts
