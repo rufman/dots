@@ -42,6 +42,7 @@ binaries=(
   hub
   mysql
   openssl
+  fleetctl
 )
 
 # Install the binaries

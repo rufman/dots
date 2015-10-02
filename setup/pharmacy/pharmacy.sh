@@ -52,5 +52,6 @@ echo "#########################################################################"
 echo "Create m.gr.com link in hosts file"
 echo "127.0.0.1  m.gr.com m.gbs.gr.com m.ihop.gr.com" > /tmp/newfile
 echo "127.0.0.1  www.gr.com gbs.gr.com ihop.gr.com" >> /tmp/newfile
+echo "127.0.0.1  assets.gr.com" >> /tmp/newfile
 sudo cat /etc/hosts >> /tmp/newfile
 sudo cp /tmp/newfile /etc/hosts

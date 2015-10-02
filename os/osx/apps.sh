@@ -6,7 +6,7 @@ set -e
 
 # Apps
 apps=(
-  alfred
+  # alfred
   dropbox
   google-chrome
   qlcolorcode
@@ -15,7 +15,7 @@ apps=(
   transmit
   appcleaner
   firefox
-  hazel
+  # hazel
   qlmarkdown
   # seil
   spotify
@@ -29,9 +29,9 @@ apps=(
   virtualbox
   atom
   flux
-  mailbox
+  # mailbox
   qlstephen
-  sketch
+  # sketch
   # tower
   vlc
   # cloudup
@@ -51,6 +51,13 @@ apps=(
   dash
   the-unarchiver
   diffmerge
+  gimp
+  sophos-anti-virus-home-edition
+  nmap
+  vagrant
+  vagrant-manager
+  github-desktop
+  evernote
 )
 
 # fonts
