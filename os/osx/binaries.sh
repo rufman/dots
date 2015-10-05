@@ -33,8 +33,8 @@ binaries=(
   zopfli
   ffmpeg
   python
-  mongo
-  sshfs
+  #mongo
+  #sshfs
   trash
   tree
   ack

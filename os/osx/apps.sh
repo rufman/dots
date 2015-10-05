@@ -43,6 +43,7 @@ apps=(
   # apikitchen
   # mamp
   1password
+  xquartz
   inkscape
   sourcetree
   openoffice
