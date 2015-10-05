@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -eu
 version="0.0.7"
 
 # dots(1) main
@@ -46,6 +47,10 @@ main() {
       setup $2 $3
       exit
       ;;
+    open )
+      open
+      exit
+      ;;
     *)
       usage
       exit
@@ -71,6 +76,7 @@ usage() {
     update <os|dots>                           Update the os or dots
     update-setup <environment> <project_path>  Update an environment at a sepcific project target
     setup <environment> <project_path>         Setup up an environment with a sepcific project target
+    open                                       Open dots for development
 
 EOF
 }
@@ -141,6 +147,12 @@ realpath() {
 
   dir=`pwd -P`
   echo $dir/$target
+}
+
+# open dots(1)
+# TODO use default editor
+open() {
+  atom $dirname
 }
 
 # Call main

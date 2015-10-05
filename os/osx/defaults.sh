@@ -1,14 +1,18 @@
+#!/usr/bin/env bash
+set -eu
+
 # OSX for Hackers (Mavericks/Yosemite)
 #
 # Source: https://gist.github.com/brandonb927/3195465
-
-#!/bin/sh
 
 # Some things taken from here
 # https://github.com/mathiasbynens/dotfiles/blob/master/.osx
 
 # Ask for the administrator password upfront
 sudo -v
+
+# Keep-alive: update existing `sudo` time stamp until `.osx` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 echo "This script will make your Mac awesome"
 
@@ -29,8 +33,6 @@ echo "This script will make your Mac awesome"
 #   "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
 #   "/System/Library/CoreServices/Menu Extras/Battery.menu" \
 #   "/System/Library/CoreServices/Menu Extras/Clock.menu"
-
-sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
 
 echo ""
 echo "Disabling OS X Gate Keeper"
@@ -83,7 +85,7 @@ echo "Check for software updates daily, not just once per week"
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
 echo ""
-echo "Disable smart quotes and smart dashes as theyâ€™re annoying when typing code"
+echo "Disable smart quotes and smart dashes as they're annoying when typing code"
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
@@ -192,7 +194,7 @@ echo "Enabling snap-to-grid for icons on the desktop and in other icon views"
 ###############################################################################
 
 # Wipe all (default) app icons from the Dock
-# This is only really useful when setting up a new Mac, or if you donâ€™t use
+# This is only really useful when setting up a new Mac, or if you don't use
 # the Dock to launch apps.
 #defaults write com.apple.dock persistent-apps -array
 
@@ -221,27 +223,27 @@ defaults write com.apple.dock magnification -bool true
 ###############################################################################
 
 echo ""
-echo "Hiding Safariâ€™s bookmarks bar by default"
+echo "Hiding Safari's bookmarks bar by default"
 defaults write com.apple.Safari ShowFavoritesBar -bool false
 
 echo ""
-echo "Hiding Safariâ€™s sidebar in Top Sites"
+echo "Hiding Safari's sidebar in Top Sites"
 defaults write com.apple.Safari ShowSidebarInTopSites -bool false
 
 echo ""
-echo "Disabling Safariâ€™s thumbnail cache for History and Top Sites"
+echo "Disabling Safari's thumbnail cache for History and Top Sites"
 defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
 
 echo ""
-echo "Enabling Safariâ€™s debug menu"
+echo "Enabling Safari's debug menu"
 defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
 
 echo ""
-echo "Making Safariâ€™s search banners default to Contains instead of Starts With"
+echo "Making Safari's search banners default to Contains instead of Starts With"
 defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false
 
 echo ""
-echo "Removing useless icons from Safariâ€™s bookmarks bar"
+echo "Removing useless icons from Safari's bookmarks bar"
 defaults write com.apple.Safari ProxiesInBookmarksBar "()"
 
 echo ""
@@ -267,9 +269,66 @@ echo ""
 echo "Setting email addresses to copy as 'foo@example.com' instead of 'Foo Bar <foo@example.com>' in Mail.app"
 defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 
+###############################################################################
+# Spotlight                                                                   #
+###############################################################################
+
+#echo ""
+#echo "Hide Spotlight tray-icon (and subsequent helper)"
+#sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
+
+echo ""
+echo "Disable Spotlight indexing for any volume that gets mounted and has not yet been indexed before."
+# Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
+sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
+
+echo ""
+echo "Change indexing order and disable some search results"
+# Yosemite-specific search results (remove them if your are using OS X 10.9 or older):
+# 	MENU_DEFINITION
+# 	MENU_CONVERSION
+# 	MENU_EXPRESSION
+# 	MENU_SPOTLIGHT_SUGGESTIONS (send search queries to Apple)
+# 	MENU_WEBSEARCH             (send search queries to Apple)
+# 	MENU_OTHER
+defaults write com.apple.spotlight orderedItems -array \
+	'{"enabled" = 1;"name" = "APPLICATIONS";}' \
+	'{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
+	'{"enabled" = 1;"name" = "DIRECTORIES";}' \
+	'{"enabled" = 1;"name" = "PDF";}' \
+	'{"enabled" = 1;"name" = "FONTS";}' \
+	'{"enabled" = 0;"name" = "DOCUMENTS";}' \
+	'{"enabled" = 0;"name" = "MESSAGES";}' \
+	'{"enabled" = 0;"name" = "CONTACT";}' \
+	'{"enabled" = 0;"name" = "EVENT_TODO";}' \
+	'{"enabled" = 0;"name" = "IMAGES";}' \
+	'{"enabled" = 0;"name" = "BOOKMARKS";}' \
+	'{"enabled" = 0;"name" = "MUSIC";}' \
+	'{"enabled" = 0;"name" = "MOVIES";}' \
+	'{"enabled" = 0;"name" = "PRESENTATIONS";}' \
+	'{"enabled" = 0;"name" = "SPREADSHEETS";}' \
+	'{"enabled" = 0;"name" = "SOURCE";}' \
+	'{"enabled" = 0;"name" = "MENU_DEFINITION";}' \
+	'{"enabled" = 0;"name" = "MENU_OTHER";}' \
+	'{"enabled" = 0;"name" = "MENU_CONVERSION";}' \
+	'{"enabled" = 0;"name" = "MENU_EXPRESSION";}' \
+	'{"enabled" = 0;"name" = "MENU_WEBSEARCH";}' \
+	'{"enabled" = 0;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
+	
+echo ""
+echo "Load new settings before rebuilding the index"
+killall mds > /dev/null 2>&1
+
+echo ""
+echo "Make sure indexing is enabled for the main volume"
+sudo mdutil -i on / > /dev/null
+
+echo ""
+echo "Rebuild the index from scratch"
+sudo mdutil -E / > /dev/null
 
 ###############################################################################
-# Terminal
+# Terminal & iTerm 2 
 ###############################################################################
 
 echo ""
@@ -277,6 +336,10 @@ echo "Enabling UTF-8 ONLY in Terminal.app and setting the Pro theme by default"
 defaults write com.apple.terminal StringEncodings -array 4
 defaults write com.apple.Terminal "Default Window Settings" -string "Pro"
 defaults write com.apple.Terminal "Startup Window Settings" -string "Pro"
+
+echo ""
+echo "Don’t display the annoying prompt when quitting iTerm"
+defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 
 
 ###############################################################################
@@ -301,7 +364,7 @@ hash tmutil &> /dev/null && sudo tmutil disablelocal
 # defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticEmojiSubstitutionEnablediMessage" -bool false
 
 # echo ""
-# echo "Disable smart quotes as itâ€™s annoying for messages that contain code"
+# echo "Disable smart quotes as it's annoying for messages that contain code"
 # defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool false
 
 # echo ""
@@ -318,14 +381,14 @@ sudo pmset -a hibernatemode 0
 
 echo ""
 echo "Remove the sleep image file to save disk space"
-sudo rm /Private/var/vm/sleepimage
-echo "Creating a zero-byte file insteadâ€¦"
-sudo touch /Private/var/vm/sleepimage
-echo "â€¦and make sure it canâ€™t be rewritten"
-sudo chflags uchg /Private/var/vm/sleepimage
+sudo rm /private/var/vm/sleepimage
+echo "Creating a zero-byte file instead"
+sudo touch /private/var/vm/sleepimage
+echo "and make sure it can't be rewritten"
+sudo chflags uchg /private/var/vm/sleepimage
 
 echo ""
-echo "Disable the sudden motion sensor as itâ€™s not useful for SSDs"
+echo "Disable the sudden motion sensor as it's not useful for SSDs"
 sudo pmset -a sms 0
 
 echo ""
@@ -452,4 +515,10 @@ defaults write com.apple.ActivityMonitor SortDirection -int 0
 # Kill affected applications
 ###############################################################################
 
-echo "Done!"
+for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
+	"Dock" "Finder" "Google Chrome" "Google Chrome Canary" "Mail" "Messages" \
+	"Opera" "Safari" "SizeUp" "Spectacle" "SystemUIServer" "Terminal" \
+	"Transmission" "Twitter" "iCal"; do
+	killall "${app}" > /dev/null 2>&1
+done
+echo "Done. Note that some of these changes require a logout/restart to take effect."

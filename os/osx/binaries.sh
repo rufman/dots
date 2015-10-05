@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+set -eu
+
 #
 # Binary installer
 #
@@ -27,6 +30,7 @@ brew install homebrew/dupes/grep
 # Install other useful binaries
 binaries=(
   graphicsmagick
+  boot2docker
   webkit2png
   phantomjs
   rename
@@ -36,13 +40,16 @@ binaries=(
   #mongo
   #sshfs
   trash
+  node
   tree
+  hub
   ack
   git
   hub
   mysql
   openssl
   fleetctl
+  go
 )
 
 # Install the binaries
@@ -57,6 +64,9 @@ fi
 if test ! $(which spot); then
   curl -L https://raw.github.com/guille/spot/master/spot.sh -o /usr/local/bin/spot && chmod +x /usr/local/bin/spot
 fi
+
+# Create a $GOPATH
+mkdir -p $HOME/Go
 
 # Remove outdated versions from the cellar
 brew cleanup
