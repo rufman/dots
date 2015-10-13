@@ -58,6 +58,7 @@ apps=(
   vagrant-manager
   github-desktop
   evernote
+  cloak
 )
 
 # fonts
