@@ -42,7 +42,9 @@ binaries=(
   hub
   mysql
   openssl
-  fleetctl
+  # fleetctl
+  sqlite3
+  go
 )
 
 # Install the binaries

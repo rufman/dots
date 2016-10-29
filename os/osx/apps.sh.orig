@@ -6,17 +6,16 @@ set -e
 
 # Apps
 apps=(
-  # alfred
+  alfred
   dropbox
   google-chrome
   qlcolorcode
-  owncloud
-  # screenflick
+  screenflick
   slack
-  # transmit
+  transmit
   appcleaner
   firefox
-  # hazel
+  hazel
   qlmarkdown
   # seil
   spotify
@@ -26,13 +25,13 @@ apps=(
   iterm2
   qlprettypatch
   # shiori
-  # sublime-text3
+  sublime-text3
   virtualbox
   atom
   flux
-  # mailbox
+  mailbox
   qlstephen
-  # sketch
+  sketch
   # tower
   vlc
   # cloudup
@@ -40,27 +39,36 @@ apps=(
   # nvalt
   quicklook-json
   skype
-  # transmission
+  transmission
+<<<<<<< HEAD
   # apikitchen
   # mamp
   1password
   inkscape
-  # sourcetree
+  sourcetree
+  openoffice
+  node
+  openssl
+  osxfuse
+  dash
+  the-unarchiver
+  mysql
+||||||| merged common ancestors
+  apikitchen
+  mamp
+=======
+  # apikitchen
+  # mamp
+  1password
+  inkscape
+  sourcetree
   openoffice
   node
   osxfuse
   dash
   the-unarchiver
-  # diffmerge
-  kaleidoscope
-  gimp
-  sophos-anti-virus-home-edition
-  nmap
-  # vagrant
-  # vagrant-manager
-  github-desktop
-  evernote
-  # cloak
+  diffmerge
+>>>>>>> Add support for setting up our environments
 )
 
 # fonts
