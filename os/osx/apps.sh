@@ -36,7 +36,7 @@ apps=(
   # sketch
   # tower
   vlc
-  # cloudup
+  cloudup
   font-m-plus
   # nvalt
   quicklook-json
@@ -61,7 +61,7 @@ apps=(
   # vagrant
   # vagrant-manager
   github-desktop
-  evernote
+  # evernote
   # cloak
 )
 
