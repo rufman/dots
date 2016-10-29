@@ -73,33 +73,33 @@ fonts=(
 )
 
 # Atom packages
-atom=(
-  advanced-railscasts-syntax
-  atom-beautify
-  cmd-9
-  color-picker
-  css-comb
-  docblockr
-  easy-motion
-  editor-stats
-  emmet
-  fancy-new-file
-  file-icons
-  git-history
-  highlight-selected
-  image-view
-  inc-dec-value
-  key-peek
-  language-jade
-  linter
-  markdown-preview
-  merge-conflicts
-  neutron-ui
-  npm-install
-  react
-  vim-mode
-  zentabs
-)
+# atom=(
+#   advanced-railscasts-syntax
+#   atom-beautify
+#   cmd-9
+#   color-picker
+#   css-comb
+#   docblockr
+#   easy-motion
+#   editor-stats
+#   emmet
+#   fancy-new-file
+#   file-icons
+#   git-history
+#   highlight-selected
+#   image-view
+#   inc-dec-value
+#   key-peek
+#   language-jade
+#   linter
+#   markdown-preview
+#   merge-conflicts
+#   neutron-ui
+#   npm-install
+#   react
+#   vim-mode
+#   zentabs
+# )
 
 # Specify the location of the apps
 appdir="/Applications"
@@ -134,13 +134,9 @@ main() {
   echo "installing fonts..."
   brew cask install ${fonts[@]}
 
-  # install atom plugins
-  echo "installing atom plugins..."
-  apm install ${atom[@]}
-
-  # link with alfred
-  alfred
-  cleanup
+  # # install atom plugins
+  # echo "installing atom plugins..."
+  # apm install ${atom[@]}
 }
 
 homebrew() {
@@ -149,10 +145,6 @@ homebrew() {
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
 }
-
-#alfred() {
-#  brew cask alfred link
-#}
 
 cleanup() {
   brew cleanup
