@@ -34,12 +34,12 @@ echo "This script will make your Mac awesome"
 #   "/System/Library/CoreServices/Menu Extras/Battery.menu" \
 #   "/System/Library/CoreServices/Menu Extras/Clock.menu"
 
-echo ""
-echo "Disabling OS X Gate Keeper"
-echo "(You'll be able to install any app you want from here on, not just Mac App Store apps)"
-sudo spctl --master-disable
-sudo defaults write /var/db/SystemPolicy-prefs.plist enabled -string no
-defaults write com.apple.LaunchServices LSQuarantine -bool false
+# echo ""
+# echo "Disabling OS X Gate Keeper"
+# echo "(You'll be able to install any app you want from here on, not just Mac App Store apps)"
+# sudo spctl --master-disable
+# sudo defaults write /var/db/SystemPolicy-prefs.plist enabled -string no
+# defaults write com.apple.LaunchServices LSQuarantine -bool false
 
 echo ""
 echo "Increasing the window resize speed for Cocoa applications"
@@ -75,20 +75,20 @@ defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 echo ""
 echo "Reveal IP address, hostname, OS version, etc. when clicking the clock in the login window"
 sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
-
-echo ""
-echo "Never go into computer sleep mode"
-systemsetup -setcomputersleep Off > /dev/null
+#
+# echo ""
+# echo "Never go into computer sleep mode"
+# systemsetup -setcomputersleep Off > /dev/null
 
 echo ""
 echo "Check for software updates daily, not just once per week"
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
-echo ""
-echo "Disable smart quotes and smart dashes as they're annoying when typing code"
-defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
-defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
-
+# echo ""
+# echo "Disable smart quotes and smart dashes as they're annoying when typing code"
+# defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+# defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+#
 
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input
@@ -188,11 +188,11 @@ echo ""
 echo "Avoiding the creation of .DS_Store files on network volumes"
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
-echo ""
-echo "Disabling disk image verification"
-defaults write com.apple.frameworks.diskimages skip-verify -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
+# echo ""
+# echo "Disabling disk image verification"
+# defaults write com.apple.frameworks.diskimages skip-verify -bool true
+# defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
+# defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 
 echo ""
 echo "Enabling snap-to-grid for icons on the desktop and in other icon views"
@@ -326,7 +326,7 @@ defaults write com.apple.spotlight orderedItems -array \
 	'{"enabled" = 0;"name" = "MENU_EXPRESSION";}' \
 	'{"enabled" = 0;"name" = "MENU_WEBSEARCH";}' \
 	'{"enabled" = 0;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
-	
+
 echo ""
 echo "Load new settings before rebuilding the index"
 killall mds > /dev/null 2>&1
@@ -340,7 +340,7 @@ echo "Rebuild the index from scratch"
 sudo mdutil -E / > /dev/null
 
 ###############################################################################
-# Terminal & iTerm 2 
+# Terminal & iTerm 2
 ###############################################################################
 
 echo ""
@@ -349,9 +349,9 @@ defaults write com.apple.terminal StringEncodings -array 4
 defaults write com.apple.Terminal "Default Window Settings" -string "Pro"
 defaults write com.apple.Terminal "Startup Window Settings" -string "Pro"
 
-echo ""
-echo "Don’t display the annoying prompt when quitting iTerm"
-defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+# echo ""
+# echo "Don’t display the annoying prompt when quitting iTerm"
+# defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 
 
 ###############################################################################
@@ -480,14 +480,14 @@ echo "Enable “focus follows mouse” for Terminal.app and all X11 apps"
 # i.e. hover over a window and start typing in it without clicking first
 defaults write com.apple.terminal FocusFollowsMouse -bool true
 defaults write org.x.X11 wm_ffm -bool true
+#
+# echo ""
+# echo "Install the Solarized Dark theme for iTerm"
+# open "${HOME}/init/Solarized Dark.itermcolors"
 
-echo ""
-echo "Install the Solarized Dark theme for iTerm"
-open "${HOME}/init/Solarized Dark.itermcolors"
-
-echo ""
-echo "Don’t display the annoying prompt when quitting iTerm"
-defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+# echo ""
+# echo "Don’t display the annoying prompt when quitting iTerm"
+# defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 
 echo ""
 echo "Use plain text mode for new TextEdit documents"

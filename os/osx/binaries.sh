@@ -31,25 +31,9 @@ brew install homebrew/dupes/grep
 binaries=(
   graphicsmagick
   webkit2png
-  phantomjs
-  rename
-  zopfli
   ffmpeg
   python
-  #mongo
-  sshfs
-  trash
-  node
-  tree
-  hub
-  ack
-  git
-  hub
-  mysql
   openssl
-  # fleetctl
-  sqlite3
-  go
 )
 
 # Install the binaries
