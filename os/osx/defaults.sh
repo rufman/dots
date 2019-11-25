@@ -194,11 +194,11 @@ defaults write com.apple.frameworks.diskimages skip-verify -bool true
 defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
 defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 
-echo ""
-echo "Enabling snap-to-grid for icons on the desktop and in other icon views"
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+#echo ""
+#echo "Enabling snap-to-grid for icons on the desktop and in other icon views"
+#/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+#/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/#com.apple.finder.plist
+#/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/#com.apple.finder.plist
 
 
 ###############################################################################
@@ -329,7 +329,7 @@ defaults write com.apple.spotlight orderedItems -array \
 	
 echo ""
 echo "Load new settings before rebuilding the index"
-killall mds > /dev/null 2>&1
+killall mds > /dev/null 2>&1 || true
 
 echo ""
 echo "Make sure indexing is enabled for the main volume"
@@ -422,9 +422,9 @@ echo ""
 echo "Disable the sound effects on boot"
 sudo nvram SystemAudioVolume=" "
 
-echo ""
-echo "Remove duplicates in the “Open With” menu (also see `lscleanup` alias)"
-/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
+#echo ""
+#echo "Remove duplicates in the “Open With” menu (also see `lscleanup` alias)"
+#/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -#domain system -domain user
 
 echo ""
 echo "Empty Trash securely by default"
@@ -464,16 +464,16 @@ echo "Setting bottom left hot corner to activate screensaver"
 defaults write com.apple.dock wvous-bl-corner -int 5
 defaults write com.apple.dock wvous-bl-modifier -int 0
 
-echo ""
-echo "Use a modified version of the Solarized Dark theme by default in Terminal.app"
-TERM_PROFILE='Solarized Dark xterm-256color';
-CURRENT_PROFILE="$(defaults read com.apple.terminal 'Default Window Settings')";
-if [ "${CURRENT_PROFILE}" != "${TERM_PROFILE}" ]; then
-	open "${HOME}/init/${TERM_PROFILE}.terminal";
-	sleep 1; # Wait a bit to make sure the theme is loaded
-	defaults write com.apple.terminal 'Default Window Settings' -string "${TERM_PROFILE}";
-	defaults write com.apple.terminal 'Startup Window Settings' -string "${TERM_PROFILE}";
-fi;
+#echo ""
+#echo "Use a modified version of the Solarized Dark theme by default in Terminal.app"
+#TERM_PROFILE='Solarized Dark xterm-256color';
+#CURRENT_PROFILE="$(defaults read com.apple.terminal 'Default Window Settings')";
+#if [ "${CURRENT_PROFILE}" != "${TERM_PROFILE}" ]; then
+#	open "${HOME}/init/${TERM_PROFILE}.terminal";
+#	sleep 1; # Wait a bit to make sure the theme is loaded
+#	defaults write com.apple.terminal 'Default Window Settings' -string "${TERM_PROFILE}";
+#	defaults write com.apple.terminal 'Startup Window Settings' -string "${TERM_PROFILE}”;
+#fi;
 
 echo ""
 echo "Enable “focus follows mouse” for Terminal.app and all X11 apps"
@@ -481,9 +481,9 @@ echo "Enable “focus follows mouse” for Terminal.app and all X11 apps"
 defaults write com.apple.terminal FocusFollowsMouse -bool true
 defaults write org.x.X11 wm_ffm -bool true
 
-echo ""
-echo "Install the Solarized Dark theme for iTerm"
-open "${HOME}/init/Solarized Dark.itermcolors"
+#echo ""
+#echo "Install the Solarized Dark theme for iTerm"
+#open "${HOME}/init/Solarized Dark.itermcolors"
 
 echo ""
 echo "Don’t display the annoying prompt when quitting iTerm"
@@ -500,7 +500,7 @@ defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 
 echo ""
 echo "Installing xcode commandline tools"
-xcode-select --install
+xcode-select --install || true
 
 ###############################################################################
 # Activity Monitor                                                            #
@@ -523,24 +523,30 @@ echo "Sort Activity Monitor results by CPU usage"
 defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
 defaults write com.apple.ActivityMonitor SortDirection -int 0
 
-# mute all sounds, incl volume change feedback
+echo ""
+echo "mute all sounds, incl volume change feedback"
 defaults write "com.apple.sound.beep.feedback" -int 0
 defaults write com.apple.systemsound 'com.apple.sound.beep.volume' -float 0
 defaults write "com.apple.systemsound" "com.apple.sound.uiaudio.enabled" -int 0
 
-# Disable the crash reporter
+echo ""
+echo "Disable the crash reporter"
 defaults write com.apple.CrashReporter DialogType -string "none"
 
-# Restart automatically if the computer freezes
+echo ""
+echo "Restart automatically if the computer freezes"
 sudo systemsetup -setrestartfreeze on
 
-# Save screenshots to the desktop
+echo ""
+echo "Save screenshots to the desktop"
 defaults write com.apple.screencapture location -string "${HOME}/Desktop"
 
-# Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
+echo ""
+echo "Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)"
 defaults write com.apple.screencapture type -string "png"
 
-# Automatically open a new Finder window when a volume is mounted
+echo ""
+echo "Automatically open a new Finder window when a volume is mounted"
 defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
 defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
 defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
@@ -549,10 +555,10 @@ defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 # Kill affected applications
 ###############################################################################
 
-for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
-	"Dock" "Finder" "Google Chrome" "Google Chrome Canary" "Mail" "Messages" \
-	"Opera" "Safari" "SizeUp" "Spectacle" "SystemUIServer" "Terminal" \
-	"Transmission" "Twitter" "iCal"; do
-	killall "${app}" > /dev/null 2>&1
-done
+#for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
+#	"Dock" "Finder" "Google Chrome" "Google Chrome Canary" "Mail" "Messages" \
+#	"Opera" "Safari" "SizeUp" "Spectacle" "SystemUIServer" "Terminal" \
+#	"Transmission" "Twitter" "iCal"; do
+#	killall "${app}" > /dev/null 2>&1 || true
+#done
 echo "Done. Note that some of these changes require a logout/restart to take effect."

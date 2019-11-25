@@ -11,7 +11,7 @@ apps=(
   dropbox
   google-chrome
   qlcolorcode
-  owncloud
+  nextcloud
   # screenflick
   slack
   # transmit
@@ -36,7 +36,7 @@ apps=(
   # sketch
   # tower
   vlc
-  cloudup
+  # cloudup
   font-m-plus
   # nvalt
   quicklook-json
@@ -46,9 +46,9 @@ apps=(
   # mamp
   1password
   xquartz
-  inkscape
+  # inkscape
   # sourcetree
-  openoffice
+  # openoffice
   node
   osxfuse
   dash
@@ -56,7 +56,7 @@ apps=(
   # diffmerge
   kaleidoscope
   gimp
-  sophos-anti-virus-home-edition
+  #sophos-anti-virus-home-edition
   nmap
   # vagrant
   # vagrant-manager
@@ -117,8 +117,7 @@ main() {
 
   # Install homebrew-cask
   echo "installing cask..."
-  brew tap phinze/homebrew-cask
-  brew install brew-cask
+  brew tap caskroom/cask
 
   # Tap alternative versions
   brew tap caskroom/versions

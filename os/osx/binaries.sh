@@ -12,7 +12,7 @@ if test ! $(which brew); then
 fi
 
 # Update homebrew
-brew update && brew upgrade brew-cask
+brew update
 
 # Install GNU core utilities (those that come with OS X are outdated)
 brew install coreutils
@@ -37,7 +37,7 @@ binaries=(
   ffmpeg
   python
   #mongo
-  sshfs
+  #sshfs
   trash
   node
   tree
@@ -47,7 +47,7 @@ binaries=(
   hub
   mysql
   openssl
-  # fleetctl
+  kubectl
   sqlite3
   go
 )
