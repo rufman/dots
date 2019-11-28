@@ -1,0 +1,16 @@
+# Kubectl stuff
+alias kinfra="kubectl config use-context infra"
+
+# Git stuff
+alias git-rpull="git pull --rebase"
+
+# navigation
+alias arista='cd ~/go/src/arista/'
+
+# yarn
+alias ytm="yarn run test-metrics"
+alias ytc="yarn run test-coverage"
+alias yrdev="ENABLE_REDUX_LOGGER=true yarn run dev --fast"
+alias yrdevlink="ENABLE_REDUX_LOGGER=true yarn run dev-link --fast"
+
+alias watch-apiserver="while sleep 1; do kpg apiserver; done;"

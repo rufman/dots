@@ -1,0 +1,22 @@
+# Always enable colored `grep` output
+export GREP_OPTIONS="--color=auto"
+
+# Larger bash history (allow 32³ entries; default is 500)
+export HISTSIZE=32768
+export HISTFILESIZE=$HISTSIZE
+export HISTCONTROL=ignoredups
+# Make some commands not show up in history
+export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
+
+# Highlight section titles in manual pages
+export LESS_TERMCAP_md="$ORANGE"
+
+## NVM
+export NVM_DIR=~/.nvm
+
+# cache pip-installed packages to avoid re-downloading
+export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
+
+# PIP environment vars
+export PIP_TRUSTED_HOST=github.com
+export PIP_PROCESS_DEPENDENCY_LINKS=1

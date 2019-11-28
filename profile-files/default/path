@@ -1,0 +1,15 @@
+## Put brew's ruby in front
+export PATH=/usr/local/opt/ruby/bin:$PATH
+
+## Use gnu tools instead
+export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
+
+## Add the $GOPATH/bin to path
+export GOPATH=$HOME/go
+export PATH=$HOME/go/bin:$PATH
+
+## Add more python stuff to path
+export PATH=$PATH:/usr/local/share/python
+
+## Cargo
+export PATH="$HOME/.cargo/bin:$PATH"
