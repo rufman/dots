@@ -33,6 +33,7 @@ PACKAGES=(
     python3
     rustup
     wget
+    tmux
 )
 
 echo "Installing packages..."

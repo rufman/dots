@@ -10,3 +10,7 @@ cp profile-files/default/exports ~/.exports
 cp profile-files/default/functions ~/.functions
 cp profile-files/default/path ~/.path
 cp profile-files/default/profile ~/.profile
+
+# copy vim and tmux config
+cp profile-files/default/vimrc ~/.vimrc
+cp profile-files/default/tmux ~/.tmux.conf
