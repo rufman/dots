@@ -47,6 +47,10 @@ echo "Installing shell..."
 
 sh install_shell.sh
 
+echo "Installing theme..."
+
+sh install_theme.sh
+
 echo "Installing bash profile..."
 
 sh install_profile.sh

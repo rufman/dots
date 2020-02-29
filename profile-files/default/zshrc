@@ -123,7 +123,6 @@ BULLETTRAIN_KCTX_PREFIX="🕸️"
 BULLETTRAIN_KCTX_BG=blue
 
 source ~/.aliases
-source ~/.work-aliases
 source ~/.path
 source ~/.functions
 
