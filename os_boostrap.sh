@@ -43,6 +43,10 @@ echo "Configuring OSX..."
 
 sh osx_settings.sh
 
+echo "Installing shell..."
+
+sh install_shell.sh
+
 echo "Installing bash profile..."
 
 sh install_profile.sh
