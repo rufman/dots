@@ -1,4 +1,6 @@
 # Kubectl stuff
+alias kpg='kubectl get po -o wide | grep'
+alias kbc="kubectl"
 alias kinfra="kubectl config use-context infra"
 
 # Git stuff

@@ -28,12 +28,14 @@ PACKAGES=(
     go
     hub
     nmap
-    node
     python
     python3
     rustup
     wget
     tmux
+    rust
+    yarn
+    npm
 )
 
 echo "Installing packages..."
@@ -72,6 +74,7 @@ brew tap homebrew/cask-fonts
 FONTS=(
     font-roboto
     font-clear-sans
+    font-droid-sans-mono-for-powerline
 )
 brew cask install ${FONTS[@]}
 
