@@ -44,6 +44,8 @@ alias codedir='cd ~/code/'
 
 # Git stuff
 alias gcam="git commit --amend"
+alias gct="git checkout trunk"
+alias grbt="git rebase trunk"
 
 # Other
 alias g="grep"
@@ -53,3 +55,4 @@ alias ys="yarn install"
 alias yu="yarn-unlink"
 alias yarn-resolve-conflict="git checkout --ours yarn.lock && git add yarn.lock && yarn install && git add yarn.lock"
 alias yrc="git checkout --ours yarn.lock && git add yarn.lock && yarn install && git add yarn.lock"
+alias nr="npm run"
